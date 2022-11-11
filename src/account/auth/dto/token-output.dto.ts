@@ -4,5 +4,5 @@ import { Field, ObjectType } from "@nestjs/graphql";
 export class Token{
 
     @Field()
-    token: String
+    token: string
 }

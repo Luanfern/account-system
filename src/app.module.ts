@@ -1,11 +1,12 @@
 import { ApolloDriver } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './account/auth/auth.module';
 import { RegisterModule } from './account/register/register.module';
+import { AuthMiddlewareMiddleware } from './middlewares/auth-middleware/auth-middleware.middleware';
 //import { typeOrmConfigAsync } from './config/typeorm.config';
 
 @Module({
@@ -36,4 +37,10 @@ import { RegisterModule } from './account/register/register.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+    .apply(AuthMiddlewareMiddleware)
+  }
+  
+}

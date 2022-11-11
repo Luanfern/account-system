@@ -42,7 +42,7 @@ export class AuthService {
         try {
 
             var jwt = new JwtToken()
-            const jwtString = jwt.verifyToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjY4MTgyNDMzLCJleHAiOjE2NjgyMjU2MzN9.ep8L0QCujyoksMk12fb--be_zo5tF_szOLaDbHtvHak')
+            const jwtString = jwt.verifyToken(token.token)
 
             const account =  await this.regiterRepositoy.findOne({
                 where: {

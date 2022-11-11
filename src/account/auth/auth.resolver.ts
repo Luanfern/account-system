@@ -18,8 +18,8 @@ export class AuthResolver {
     }
 
    @Query(() => Account)
-    async autoLogin(){
-        const account = await this.authservice.AuthAutoAccount({token: ''} as Token)
+    async autoLogin(@Args('token') token: String){
+        const account = await this.authservice.AuthAutoAccount({token: token} as Token)
         return account
     }
 

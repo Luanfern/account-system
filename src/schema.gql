@@ -16,7 +16,7 @@ type Token {
 type Query {
   q1: String!
   login(data: AuthDto!): Token!
-  autoLogin: Account!
+  autoLogin(token: String!): Account!
 }
 
 input AuthDto {
