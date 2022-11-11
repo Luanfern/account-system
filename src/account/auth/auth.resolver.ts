@@ -18,7 +18,6 @@ export class AuthResolver {
     @Query(() => Account)
     async login(@Args('data') dados: AuthDto){
         const account = await this.authservice.AuthAccount(dados)
-        console.log(dados)
         return account
     }
 

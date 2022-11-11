@@ -16,15 +16,4 @@ export class RegisterService {
         const save = this.regiterRepositoy.save(create)
         return save
     }
-
-    async AuthAccount(): Promise<Account>{
-        const account =  await this.regiterRepositoy.findOne({
-            where: {
-                email: 'luan@gmail.com',//dataAccout.email,
-                password: '123abc'//dataAccout.password
-            }
-        })
-        console.log(account)
-        return account
-    }
 }

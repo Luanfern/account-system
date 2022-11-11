@@ -15,11 +15,10 @@ export class AuthService {
     async AuthAccount(dataAccout: AuthDto): Promise<Account>{
         const account =  await this.regiterRepositoy.findOne({
             where: {
-                email: 'luan@gmail.com',//dataAccout.email,
-                password: '123abc'//dataAccout.password
+                email: dataAccout.email,
+                password: dataAccout.password
             }
         })
-        console.log(account)
         return account
     }
 

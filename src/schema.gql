@@ -10,7 +10,7 @@ type Account {
 }
 
 type Query {
-  q1: Account!
+  q1: String!
   login(data: AuthDto!): Account!
 }
 
