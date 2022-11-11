@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Account } from '../entities/account.entity';
+import { CryptoFunctions } from '../functions/crypto';
 import { AuthDto } from './dto/do-auth.dto';
 
 @Injectable()
@@ -13,10 +14,13 @@ export class AuthService {
     ){}
 
     async AuthAccount(dataAccout: AuthDto): Promise<Account>{
+        var crypto = new CryptoFunctions()
+        const cryptoPass = crypto.encript(dataAccout.password)
+        
         const account =  await this.regiterRepositoy.findOne({
             where: {
                 email: dataAccout.email,
-                password: dataAccout.password
+                password: cryptoPass
             }
         })
         return account
