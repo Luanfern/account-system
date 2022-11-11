@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { RegisterDto } from './dto/do-register.dto';
 import { Account } from '../entities/account.entity';
 import { CryptoFunctions } from '../functions/crypto';
+import { JwtToken } from '../functions/jwt-token';
+import { Token } from '../auth/dto/token-output.dto';
 
 @Injectable()
 export class RegisterService {
@@ -12,7 +14,7 @@ export class RegisterService {
         private regiterRepositoy: Repository<Account>,
     ){}
 
-    async createAccount(accountData: RegisterDto): Promise<Account> {
+    async createAccount(accountData: RegisterDto): Promise<Token> {
 
         var crypto = new CryptoFunctions()
         const cryptoPass = crypto.encript(accountData.password)
@@ -22,7 +24,11 @@ export class RegisterService {
             name: accountData.name,
             password: cryptoPass
         })
-        const save = this.regiterRepositoy.save(create)
-        return save
+        const save = await this.regiterRepositoy.save(create)
+
+        var jwt = new JwtToken()
+        const jwtString = jwt.generateToken(save.id)
+
+        return {token: jwtString} as Token
     }
 }

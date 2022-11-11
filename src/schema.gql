@@ -9,9 +9,14 @@ type Account {
   password: String!
 }
 
+type Token {
+  token: String!
+}
+
 type Query {
   q1: String!
-  login(data: AuthDto!): Account!
+  login(data: AuthDto!): Token!
+  autoLogin: Account!
 }
 
 input AuthDto {
@@ -20,7 +25,7 @@ input AuthDto {
 }
 
 type Mutation {
-  register(data: RegisterDto!): Account!
+  register(data: RegisterDto!): Token!
 }
 
 input RegisterDto {

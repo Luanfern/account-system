@@ -1,7 +1,8 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { Account } from '../entities/account.entity';
+import { Token } from './dto/token-output.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/do-auth.dto';
+import { Account } from '../entities/account.entity';
 
 @Resolver('auth')
 export class AuthResolver {
@@ -10,14 +11,15 @@ export class AuthResolver {
         private authservice: AuthService
     ){}
 
-   /* @Query(() => Object)
-    login(){
-        return {its: 'ok'}
-    }*/
-
-    @Query(() => Account)
+    @Query(() => Token)
     async login(@Args('data') dados: AuthDto){
         const account = await this.authservice.AuthAccount(dados)
+        return account
+    }
+
+   @Query(() => Account)
+    async autoLogin(){
+        const account = await this.authservice.AuthAutoAccount({token: ''} as Token)
         return account
     }
 
